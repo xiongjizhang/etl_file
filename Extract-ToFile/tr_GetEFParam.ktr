@@ -68,7 +68,7 @@
   <created_user>-</created_user>
   <created_date>2016&#x2f;11&#x2f;22 14&#x3a;45&#x3a;36.483</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;11&#x2f;22 16&#x3a;05&#x3a;04.833</modified_date>
+  <modified_date>2017&#x2f;03&#x2f;03 17&#x3a;18&#x3a;43.550</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -101,6 +101,31 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>sjyyDB_tuandailjp</name>
+    <server>120.76.245.28</server>
+    <type>MSSQL</type>
+    <access>Native</access>
+    <database>TuandaiM</database>
+    <port>15512</port>
+    <username>tuandailjp</username>
+    <password>Encrypted 2efeec0fc28e5c48aad28a846f5a584ce</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>15512</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
   <hop> <from>&#x8868;&#x8f93;&#x5165;</from><to>&#x8bbe;&#x7f6e;&#x53d8;&#x91cf;</to><enabled>Y</enabled> </hop>
   </order>
@@ -115,8 +140,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>DH_ETL</connection>
-    <sql>SELECT SI.paramvalue data_path,&#xd;&#xa;       SI.paramvalue1 back_path,&#xd;&#xa;       SI.paramvalue2 tmp_path,&#xd;&#xa;       TS.LastRunperiod,&#xd;&#xa;       concat&#x28;TR.TransType,&#x27;_&#x27;,TR.TransComment,&#x27;&#x24;&#x7b;USER_RUNPERIOD&#x7d;&#x27;&#x29; exp_file,&#xd;&#xa;       concat&#x28;TR.TransType,&#x27;_&#x27;,TR.TransComment,TS.LastRunperiod&#x29; remove_exp_file,&#xd;&#xa;       concat&#x28;TR.TransType,&#x27;_&#x27;,TR.TransComment,f_SubRun&#x28;substring&#x28;&#x27;&#x24;&#x7b;USER_RUNPERIOD&#x7d;&#x27;,1,8&#x29;,SI.paramvalue3&#x29;&#x29; delete_exp_file,&#xd;&#xa;       LS.paramvalue LoadSession&#xd;&#xa;  FROM ETL.tconf_transdata TR&#xd;&#xa;INNER JOIN ETL.tconf_schedule TS ON TR.ScheduleID&#x3d;TS.ScheduleID&#xd;&#xa;INNER JOIN ETL.tconf_pub_param SI ON TR.DataPath&#x3d;SI.paramcode AND SI.paramtype&#x3d;&#x27;00000009&#x27;&#xd;&#xa;INNER JOIN ETL.tconf_pub_param LS ON TR.LoadSession&#x3d;LS.paramcode AND LS.paramtype&#x3d;&#x27;00000010&#x27;&#xd;&#xa;WHERE TR.ScheduleID&#x3d;&#x24;&#x7b;USER_SCHEDULID&#x7d;</sql>
+    <connection>DB_Kettle</connection>
+    <sql>SELECT SI.paramvalue data_path,&#xd;&#xa;       SI.paramvalue1 back_path,&#xd;&#xa;       SI.paramvalue2 tmp_path,&#xd;&#xa;       concat&#x28;TR.TransComment,&#x27;&#x24;&#x7b;USER_RUNPERIOD&#x7d;&#x27;&#x29; exp_file,&#xd;&#xa;       concat&#x28;TR.TransComment,TS.lastrunperiod&#x29; remove_exp_file,&#xd;&#xa;       concat&#x28;TR.TransComment,f_SubRun&#x28;substring&#x28;&#x27;&#x24;&#x7b;USER_RUNPERIOD&#x7d;&#x27;,1,8&#x29;,SI.paramvalue3&#x29;&#x29; delete_exp_file,&#xd;&#xa;       LS.paramvalue LoadSession,&#xd;&#xa;       TS.lastrunperiod&#xd;&#xa;  FROM ETL.tconf_transdata TR&#xd;&#xa;INNER JOIN ETL.tconf_schedule TS ON TR.ScheduleID&#x3d;TS.ScheduleID&#xd;&#xa;INNER JOIN ETL.tconf_pub_param SI ON TR.DataPath&#x3d;SI.paramcode AND SI.paramtype&#x3d;&#x27;00000009&#x27;&#xd;&#xa;INNER JOIN ETL.tconf_pub_param LS ON TR.LoadSession&#x3d;LS.paramcode AND LS.paramtype&#x3d;&#x27;00000010&#x27;&#xd;&#xa;WHERE TR.ScheduleID&#x3d; &#x24;&#x7b;USER_SCHEDULID&#x7d;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -185,7 +210,7 @@
         <default_value/>
         </field>
       <field>
-        <field_name>LastRunperiod</field_name>
+        <field_name>lastrunperiod</field_name>
         <variable_name>USER_LASTRUNPERIOD</variable_name>
         <variable_type>ROOT_JOB</variable_type>
         <default_value/>
